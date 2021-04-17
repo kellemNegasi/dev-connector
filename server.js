@@ -9,17 +9,19 @@ const profile = require('./routes/api/profile');
 const db = require('./config/keys').mongoURI;
 
 //body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //connect to mongo db
 mongoose.
-  connect(db,{ useNewUrlParser: true,useUnifiedTopology: true }).
+  connect(db,{ useNewUrlParser: true,useUnifiedTopology: true,useFindAndModify: false }).
   then(() => console.log('connected to mongodb successfuly'))
   .catch(err => console.log(err));
 
 //passport middleware
 app.use(passport.initialize());
+//Passport Config
+require("./config/passport")(passport)
 // user routs
 // require('/confit/passport')(passport)
 app.use('/api/posts', posts);
