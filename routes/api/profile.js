@@ -34,11 +34,10 @@ router.get('/',passport.authenticate('jwt',{session:false}),(req,res)=>{
 // @access private
 router.post('/',passport.authenticate('jwt',{session:false}),
 (req,res)=>{
-   
     const returnedValue = validateProfileInput(req.body);
     const errors = returnedValue.errors;
     const isvalid = returnedValue.isValid
-        if (!isvalid){
+    if (!isvalid) {
         return res.status(400).json(errors)
     }
     // Get profile fields
@@ -67,16 +66,13 @@ router.post('/',passport.authenticate('jwt',{session:false}),
     .then(profile=>{
         if(profile){
             //update
-            console.log(profile)
-            Profile.findOneAndUpdate(
-                {user:req.body.id},
-                {$set:profileFields},
-                {new:true},function(err,profile){
-                    console.log("error ",err);
-                    if(err) return res.send(500),{error:err};
-                    return res.json(profile)});
-                // .then(profile => {
-                //     console.log("profile",profile)
+            Profile.findOneAndUpdate({handle: profileFields.handle }, { $set: profileFields }, { new: true })
+                .then(profile => {
+                    console.log('updated the profile', profile);
+                    res.status(200).json(profile);
+                }).catch(err => {
+                    console.log("err", err);
+            })
         }
         else{
             //create
@@ -91,7 +87,7 @@ router.post('/',passport.authenticate('jwt',{session:false}),
                 new Profile(profileFields).save()
                 .then(
                     profile => {
-                        console.log("profile ",profile)
+                        console.log("created profile ",profile)
                         res.json(profile)
                     });
             });
