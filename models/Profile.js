@@ -33,7 +33,7 @@ bio:{
 githubusername:{
     type:String
 },
-exprience:[
+experience:[
     {
         title:{
         type:String,
@@ -64,7 +64,7 @@ exprience:[
 
 education:[
         {
-            school:{
+        school:{
             type:String,
             required:true
         },
