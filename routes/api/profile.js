@@ -18,7 +18,8 @@ router.get('/test', (req, res) => res.json({ msg: "profile works" }));
 // @access private 
 router.get('/',passport.authenticate('jwt',{session:false}),(req,res)=>{
     errors ={};
-    Profile.findOne({user:req.user.id})
+    Profile.findOne({ user: req.user.id })
+        .populate('user',['name','avatar'])
     .then(profile=>{
         if(!profile){
             errors.noprofile ="There is no profile for this user"
@@ -62,13 +63,13 @@ router.post('/',passport.authenticate('jwt',{session:false}),
     if(req.body.instagram) profileFields.social.instagram = req.body.instagram;
     if(req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
 
-    Profile.findOne({user:req.user.id})
+    Profile.findOne({ user: req.user.id })
     .then(profile=>{
         if(profile){
             //update
             Profile.findOneAndUpdate({handle: profileFields.handle }, { $set: profileFields }, { new: true })
                 .then(profile => {
-                    console.log('updated the profile', profile);
+                    console.log('updated the profile');
                     res.status(200).json(profile);
                 }).catch(err => {
                     console.log("err", err);
@@ -87,7 +88,7 @@ router.post('/',passport.authenticate('jwt',{session:false}),
                 new Profile(profileFields).save()
                 .then(
                     profile => {
-                        console.log("created profile ",profile)
+                        console.log("created profile ")
                         res.json(profile)
                     });
             });
