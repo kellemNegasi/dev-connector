@@ -11,6 +11,7 @@ const User = require('../../models/User');
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require('../../validation/education');
+const isEmpty = require('../../validation/is-empty');
 // @route api/profile/test
 // @desc tests profile route
 // @access Public 
@@ -44,6 +45,10 @@ router.get('/all', (req, res) => {
         .populate('user', ['name', 'avatar'])
         .then(profiles => {
             if (!profiles) {
+                errors.noprofiles = "there are no profiles";
+                res.status(404).json(errors);
+            }
+            if (isEmpty(profiles)) {
                 errors.noprofiles = "there are no profiles";
                 res.status(404).json(errors);
             }
@@ -124,9 +129,9 @@ router.post('/',passport.authenticate('jwt',{session:false}),
     .then(profile=>{
         if(profile){
             //update
-            Profile.findOneAndUpdate({handle: profileFields.handle }, { $set: profileFields }, { new: true })
+            Profile.findOneAndUpdate({user: req.user.id}, { $set: profileFields }, { new: true })
                 .then(profile => {
-                    console.log('updated the profile');
+                    console.log('updated the profile',profile);
                     res.status(200).json(profile);
                 }).catch(err => {
                     console.log("err", err);
@@ -147,8 +152,8 @@ router.post('/',passport.authenticate('jwt',{session:false}),
                     profile => {
                         console.log("created profile ")
                         res.json(profile)
-                    });
-            });
+                    }).catch(err=>res.status(404).json({error:"failed to save new profile"}));
+            }).catch(err=res.status(404).json({error:"failed to check profile with hanlde"}));
         }
     })
     });
@@ -211,7 +216,51 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
         })
 });
 
-// @route POST api/profile/exprience/:exp_id
+// @route DELETE api/profile/exprience/:exp_id
 // @desc to delete experience of a profile by id
 // @access private
+router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    Profile.findOne({ user: req.user.id })
+        .then(profile => {
+        
+            // remove experience from profile
+            const removeIndex = profile.experience.
+                map(item => item.id).
+                indexOf(req.params.exp_id);
+            profile.experience.splice(removeIndex, 1);
+            profile.save().then(profile => res.json(profile))
+        })
+        .catch(err => res.status(404).json({ error: "error in deleting an item" }));
+});
+// @route DELETE api/profile/education/:exp_id
+// @desc to delete educatoin of a profile by id
+// @access private
+router.delete('/education/:edu_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    Profile.findOne({ user: req.user.id })
+        .then(profile => {
+        
+            // remove experience from profile
+            const removeIndex = profile.education.
+                map(item => item.id).
+                indexOf(req.params.edu);
+            profile.education.splice(removeIndex, 1);
+            profile.save().then(profile => res.json(profile))
+        })
+        .catch(err => res.status(404).json({ error: "error in deleting an item" }));
+});
+// @route DELETE api/profile
+// @desc to delete user and profile profile
+// @access private
+router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Profile.findOneAndRemove({user: req.user.id })
+        .then(profile => {
+            User.findOneAndRemove({_id: req.user.id })
+                .then(() => {
+                    res.json({ success: true });
+                })
+        }).catch(err => res.status(404).json({ error: "failor to remove profile" }));
+
+});
 module.exports = router;
