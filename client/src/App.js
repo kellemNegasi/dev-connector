@@ -1,10 +1,15 @@
 
 import './App.css';
+import Footer from './components/layout/Footer';
+import Navbar from './components/layout/Navbar';
+import Landing from './components/layout/Landing';
 
 function App() {
   return (
     <div className="App">
-      <h1>Dev Connector</h1>
+      <Navbar/>
+      <Landing/>
+      <Footer/>
     </div>
   );
 }
