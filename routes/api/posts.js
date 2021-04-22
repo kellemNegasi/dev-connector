@@ -129,7 +129,7 @@ router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (r
       // save
       post.save()
         .then(post => res.json(post))
-    }).catch(err => res.status(404).json({ postnotfoune: "post not found" }));
+    }).catch(err => res.status(404). json({ postnotfoune: "post not found" }));
 });
 
 // @route Delet api/posts/comment/:id/:/comment_id
