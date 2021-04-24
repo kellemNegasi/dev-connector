@@ -69,38 +69,49 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   //find the user by email
-  User.findOne({ email }).then((user) => {
-    //check user
-    if (!user) {
-      errors.email = "user not found";
-      return res.status(404).json(errors);
-    }
-    bcrypt.compare(password, user.password).then((ismatch) => {
-      if (ismatch) {
-        //user matched
-        //sign the token
-        const payload = {
-          id: user.id,
-          name: user.name,
-          avatar: user.avatar,
-        }; // create the jwt payload
-        jwt.sign(
-          payload,
-          keys.secretOrkey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token,
-            });
-          }
-        );
-      } else {
-        errors.password = "password incorrect";
-        return res.status(400).json(errors);
+  User.findOne({ email })
+    .then((user) => {
+      //check user
+      if (!user) {
+        errors.email = "user not found";
+        return res.status(404).json(errors);
       }
+      bcrypt
+        .compare(password, user.password)
+        .then((ismatch) => {
+          if (ismatch) {
+            //user matched
+            //sign the token
+            const payload = {
+              id: user.id,
+              name: user.name,
+              avatar: user.avatar,
+            }; // create the jwt payload
+            jwt.sign(
+              payload,
+              keys.secretOrkey,
+              { expiresIn: 3600 },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token,
+                });
+              }
+            );
+          } else {
+            console.log("here ego again");
+            errors.password = "password incorrect";
+            return res.status(400).json(errors);
+          }
+        })
+        .catch((error) => {
+          errors.password = "password comparison failed";
+          return res.status(400).json(errors);
+        });
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: "something happend" });
     });
-  });
 });
 
 // @route api/users/current
