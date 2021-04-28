@@ -17,13 +17,28 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount() {
-    console.log("component did mount");
-  }
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    if (nextProps.errors) {
+    console.log("login component did mount");
+  }
+
+  // componentDidUpdate(prevProps) {
+
+  // }
+
+  // getDerivedStateFromProps(nextProps, prevState) {
+
+  //   if (nextProps.errors) {
+  //      this.setState({ errors: nextProps.errors });
+  //   }
+
+  // }
+  componentWillReceiveProps(nextProps) {
+    console.log("login component will recieve props");
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    } else if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     } else {
     }
