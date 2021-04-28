@@ -31,8 +31,6 @@ export const loginUser = (userData) => (dispatch) => {
       const decodedData = jwt_decode(token);
       // set current user
       const currentUser = setCurrentUser(decodedData);
-      console.log(typeof currentUser);
-      console.log(typeof dispatch);
       dispatch(currentUser);
       // dispatch(currentUser);
     })
