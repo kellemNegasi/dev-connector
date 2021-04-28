@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+import Dashboard from "./components/dashboard/Dashboard";
 import { logoutUser } from "./actions/authActions";
 
 // here let's check for storage
@@ -40,6 +41,7 @@ function App() {
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/dashboard" component={Dashboard} />
           </div>
           <Footer />
         </div>
