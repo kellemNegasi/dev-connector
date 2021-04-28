@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+import { logoutUser } from "./actions/authActions";
 
 // here let's check for storage
 
@@ -20,6 +21,14 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // set user and authenticated
   setCurrentUser(store.dispatch(setCurrentUser(decoded)));
+  //check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+    // clear current profile
+    // redirect to loging
+    Window.location.href = "/login";
+  }
 }
 function App() {
   return (
