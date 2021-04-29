@@ -13,6 +13,7 @@ import store from "./store";
 import Dashboard from "./components/dashboard/Dashboard";
 import { logoutUser } from "./actions/authActions";
 import PrivateRoute from "./components/common/PrivateRoute";
+import CreateProfile from "./components/create-profile/CreateProfile";
 // here let's check for storage
 
 if (localStorage.jwtToken) {
@@ -42,7 +43,14 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />  
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
             </Switch>
           </div>
           <Footer />
