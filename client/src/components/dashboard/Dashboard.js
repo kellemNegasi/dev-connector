@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
+    console.log("profile in component did mount ", this.props.profile);
   }
 
   render() {
@@ -16,6 +17,7 @@ class Dashboard extends Component {
     if (profile === null || loading) {
       dashboardContent = <Spinner />;
     } else {
+      console.log(profile);
       if (Object.keys(profile).length > 0) {
         dashboardContent = <h1>TODO: DISPLAY PROFILE HERE</h1>;
       } else {
@@ -27,7 +29,7 @@ class Dashboard extends Component {
               Create Profile
             </Link>
           </div>
-        ); 
+        );
       }
     }
 
