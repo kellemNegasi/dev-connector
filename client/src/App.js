@@ -15,6 +15,7 @@ import { logoutUser } from "./actions/authActions";
 import PrivateRoute from "./components/common/PrivateRoute";
 import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
+import AddExperience from "./components/add-credentials/AddExperience";
 // here let's check for storage
 
 if (localStorage.jwtToken) {
@@ -58,6 +59,13 @@ function App() {
                 exact
                 path="/edit-profile"
                 component={EditProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-Experience"
+                component={AddExperience}
               />
             </Switch>
           </div>
