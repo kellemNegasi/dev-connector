@@ -4,7 +4,9 @@ import {
   GET_ERRORS,
   GET_PROFILE,
   PROFILE_LOADING,
+  SET_CURRENT_USER,
 } from "./types";
+// import { clearCurrentProfile } from "./profileActions";
 // get current user's profile
 
 export const getCurrentProfile = () => (dispatch) => {
@@ -42,7 +44,6 @@ export const createProfile = (profileData, history) => (dispatch) => {
     .post("/api/profile", profileData)
     .then((result) => {
       history.push("/dashboard");
-      console.log(history);
     })
     .catch((err) =>
       dispatch({
@@ -50,4 +51,23 @@ export const createProfile = (profileData, history) => (dispatch) => {
         payload: err.response.data,
       })
     );
+};
+
+export const deleteAccount = () => (dispatch) => {
+  if (window.confirm("Are you sure? This can't be undone")) {
+    axios
+      .delete("api/profile")
+      .then((res) => {
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {},
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        })
+      );
+  }
 };

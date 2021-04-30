@@ -7,7 +7,6 @@ import { clearCurrentProfile } from "../../actions/profileActions";
 class Navbar extends Component {
   onLogoutClick(e) {
     e.preventDefault();
-    console.log("logout");
     this.props.logoutUser();
     this.props.clearCurrentProfile();
   }
@@ -15,6 +14,11 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
       <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/dashboard">
+            Dashboard
+          </Link>
+        </li>
         <li className="nav-item">
           <a
             href="/#"
