@@ -19,7 +19,7 @@ class Profiles extends Component {
         profileItems = profiles.map((profile) => (
           <ProfileItem key={profile._id} profile={profile} />
         ));
-      } else {
+      } else {  
         profileItems = <h4>No profile items found</h4>;
       }
     }
