@@ -5,6 +5,7 @@ import {
   GET_ERRORS,
   GET_POSTS,
   POST_LOADING,
+  GET_POST,
 } from "./types";
 export const addPost = (postData) => (dispatch) => {
   axios
@@ -81,4 +82,21 @@ export const setPostLoading = () => {
   return {
     type: POST_LOADING,
   };
+};
+export const getPost = (id) => (dispatch) => {
+  dispatch(setPostLoading());
+  axios
+    .get(`/api/posts/${id}`)
+    .then((res) =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_POST,
+        payload: null,
+      })
+    );
 };
