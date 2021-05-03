@@ -192,7 +192,6 @@ router.post(
         // Add to comments array
         post.comments.unshift(newComment);
         // save
-        console.log(newComment);
         post
           .save()
           .then((post) => res.json(post))

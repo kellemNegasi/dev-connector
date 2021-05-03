@@ -1,4 +1,5 @@
-module.exports = {
-  mongoURI: 'mongodb+srv://kellem:kellem@cluster0.raa58.mongodb.net/DEV-CONNECTOR?retryWrites=true&w=majority',
-  secretOrkey:'secretkey'
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}
