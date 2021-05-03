@@ -7,7 +7,6 @@ class Landing extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    console.log("landing component did mount");
   }
   render() {
     return (

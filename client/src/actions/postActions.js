@@ -103,7 +103,6 @@ export const addComment = (postId, comment) => (dispatch) => {
         type: GET_ERRORS,
         payload: err.response.data,
       });
-      console.log(err.response.data);
     });
 };
 // get a single post

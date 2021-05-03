@@ -13,7 +13,6 @@ class Profiles extends Component {
     const { profiles, loading } = this.props.profile;
     let profileItems;
     if (profiles === null || loading) {
-      console.log("loading", loading);
       profileItems = <Spinner />;
     } else {
       if (profiles.length > 0) {

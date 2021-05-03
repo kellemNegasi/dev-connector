@@ -144,7 +144,7 @@ router.post(
             res.status(200).json(profile);
           })
           .catch((err) => {
-            console.log("err", err);
+
           });
       } else {
         //create
@@ -159,7 +159,6 @@ router.post(
             new Profile(profileFields)
               .save()
               .then((profile) => {
-                console.log("created profile ");
                 res.json(profile);
               })
               .catch((err) =>

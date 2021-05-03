@@ -21,10 +21,8 @@ class Register extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    console.log("register component did mount");
   }
   componentWillReceiveProps(nextProps) {
-    console.log("register component will recieve props");
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
