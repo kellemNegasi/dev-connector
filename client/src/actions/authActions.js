@@ -8,12 +8,12 @@ export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post("/api/users/register", userData)
     .then((res) => history.push("/login"))
-    .catch((error) =>
+    .catch((error) => {
       dispatch({
         type: GET_ERRORS,
         payload: error.response.data,
-      })
-    );
+      });
+    });
 };
 
 // get user token

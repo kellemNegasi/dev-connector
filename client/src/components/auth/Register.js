@@ -46,47 +46,57 @@ class Register extends Component {
     return (
       <div className="register">
         <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                />
-                <TextFieldGroup
-                  type="email"
-                  placeholder="Email Address"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                />
-                <TextFieldGroup
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                  error={errors.password}
-                />
+          <div className="login-box mx-auto">
+            <div className="login-snip">
+              <div className="row">
+                <div className="col-md-8 m-auto">
+                  <h1 className="display-4 text-center">Sign Up</h1>
+                  <p className="lead text-center">
+                    Create your DevConnector account
+                  </p>
+                  <form onSubmit={this.onSubmit}>
+                    <TextFieldGroup
+                      placeholder="Name"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                      error={errors.name}
+                    />
+                    <TextFieldGroup
+                      type="email"
+                      placeholder="Email Address"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.onChange}
+                      error={errors.email}
+                    />
+                    <TextFieldGroup
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                      error={errors.password}
+                    />
 
-                <TextFieldGroup
-                  type="password"
-                  placeholder="Password"
-                  name="password2"
-                  value={this.state.password2}
-                  onChange={this.onChange}
-                  error={errors.password2}
-                />
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                    <TextFieldGroup
+                      type="password"
+                      placeholder="Password"
+                      name="password2"
+                      value={this.state.password2}
+                      onChange={this.onChange}
+                      error={errors.password2}
+                    />
+                    <div class="col-md-12 text-center">
+                      <input
+                        type="submit"
+                        value="Register"
+                        className="btn btn-info btn-block mt-4"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
