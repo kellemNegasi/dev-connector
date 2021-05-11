@@ -155,6 +155,8 @@ router.post(
               errors.handle = "that handle already exists";
               res.status(400).json(errors);
             }
+            
+            else{
             //save profile
             new Profile(profileFields)
               .save()
@@ -164,12 +166,10 @@ router.post(
               .catch((err) =>
                 res.status(404).json({ error: "failed to save new profile" })
               );
-          })
-          .catch(
-            (err = res
-              .status(404)
-              .json({ error: "failed to check profile with hanlde" }))
-          );
+            }
+            
+          });
+        
       }
     });
   }

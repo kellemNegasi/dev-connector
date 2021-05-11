@@ -71,7 +71,7 @@ input[type="password"] {
   border: 2px solid #3498db;
   padding: 10px 10px;
   outline: none;
-  color: white;
+  color: rgb(12, 11, 11);
   border-radius: 24px;
   transition: 0.5s;
 }
@@ -83,4 +83,18 @@ input[type="password"]:focus {
 }
 .login-form {
   margin-top: 10px;
+}
+
+.full-background {
+  position: relative;
+  background: url("./img/home-banner.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: -50px;
+}
+.dashboard {
+  background: linear-gradient(to bottom, #431663ad, #556fe2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
